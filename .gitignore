@@ -1,0 +1,8 @@
+bin
+.idea
+.DS_Store
+build
+cmake-build-debug
+cmake-build-release
+cmake-build-minsizerel
+cmake-build-relwithdebinfo
