@@ -10,8 +10,6 @@ struct Chip8
     Chip8() : cpu_(memory_) {};
     ~Chip8() = default;
 
-    void emulateCycle();
-
 private:
 
     Memory memory_;

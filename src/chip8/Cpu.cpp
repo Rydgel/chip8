@@ -149,6 +149,13 @@ void Cpu::updateTimers()
     }
 }
 
+void Cpu::emulateCycle()
+{
+    fetchOpcode();
+    executeOpcode();
+    updateTimers();
+}
+
 void Cpu::clearScreen()
 {
     pixels.fill(0);

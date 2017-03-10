@@ -10,9 +10,7 @@ TEST(cpu, op_00e0) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.pixels[1], 0);
@@ -27,9 +25,7 @@ TEST(cpu, op_00ee) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 0x44);
     EXPECT_EQ(cpu.sp, 0);
@@ -42,9 +38,7 @@ TEST(cpu, op_1nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 0x666);
 }
@@ -56,9 +50,7 @@ TEST(cpu, op_2nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 0x666);
     EXPECT_EQ(cpu.stack[0], 512);
@@ -73,15 +65,11 @@ TEST(cpu, op_3nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 514);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 518);
 }
@@ -94,15 +82,11 @@ TEST(cpu, op_4nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 514);
 
-    cpu.fetchOpcode();
-    cpu.executeOpcode();
-    cpu.updateTimers();
+    cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 518);
 }

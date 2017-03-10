@@ -30,7 +30,7 @@ struct Cpu
     void fetchOpcode();
     void executeOpcode();
     void updateTimers();
-
+    void emulateCycle();
 private:
 
     void clearScreen();
