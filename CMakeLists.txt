@@ -12,3 +12,5 @@ add_subdirectory(tests)
 set(SOURCE_FILES app/main.cpp)
 add_executable(chip8_run ${SOURCE_FILES})
 target_link_libraries(chip8_run chip8)
+
+file(COPY roms DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}.)
