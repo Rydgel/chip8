@@ -94,8 +94,8 @@ void Cpu::executeOpcode()
             break;
         case 0x1000: jumpToAdress(); break;
         case 0x2000: executeSubroutine(); break;
-        case 0x3000: /* todo */ break;
-        case 0x4000: /* todo */ break;
+        case 0x3000: skipIfVXIsNN(); break;
+        case 0x4000: skipIfVXIsNotNN(); break;
         case 0x5000: /* todo */ break;
         case 0x6000: /* todo */ break;
         case 0x7000: /* todo */ break;
@@ -173,4 +173,24 @@ void Cpu::executeSubroutine()
     stack[sp] = pc;
     sp += 1;
     jumpToAdress();
+}
+
+void Cpu::skipIfVXIsNN()
+{
+    auto x = (opcode & 0x0F00) >> 8;
+    auto nn = static_cast<uint8_t>(opcode & 0x00FF);
+    if (registers[x] == nn) {
+        pc += 2;
+    }
+    pc += 2;
+}
+
+void Cpu::skipIfVXIsNotNN()
+{
+    auto x = (opcode & 0x0F00) >> 8;
+    auto nn = static_cast<uint8_t>(opcode & 0x00FF);
+    if (registers[x] != nn) {
+        pc += 2;
+    }
+    pc += 2;
 }

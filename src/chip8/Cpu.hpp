@@ -37,6 +37,8 @@ private:
     void returnSubroutine();
     void jumpToAdress();
     void executeSubroutine();
+    void skipIfVXIsNN();
+    void skipIfVXIsNotNN();
 };
 
 

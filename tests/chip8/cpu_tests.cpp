@@ -64,3 +64,45 @@ TEST(cpu, op_2nnn) {
     EXPECT_EQ(cpu.stack[0], 512);
     EXPECT_EQ(cpu.sp, 1);
 }
+
+TEST(cpu, op_3nnn) {
+    Memory memory;
+    memory.loadBinary({ 0x31, 0x66, 0x31, 0x67 });
+    Cpu cpu { memory };
+    cpu.registers[1] = 0x67;
+
+    EXPECT_EQ(cpu.pc, 512);
+
+    cpu.fetchOpcode();
+    cpu.executeOpcode();
+    cpu.updateTimers();
+
+    EXPECT_EQ(cpu.pc, 514);
+
+    cpu.fetchOpcode();
+    cpu.executeOpcode();
+    cpu.updateTimers();
+
+    EXPECT_EQ(cpu.pc, 518);
+}
+
+TEST(cpu, op_4nnn) {
+    Memory memory;
+    memory.loadBinary({ 0x41, 0x66, 0x41, 0x67 });
+    Cpu cpu { memory };
+    cpu.registers[1] = 0x66;
+
+    EXPECT_EQ(cpu.pc, 512);
+
+    cpu.fetchOpcode();
+    cpu.executeOpcode();
+    cpu.updateTimers();
+
+    EXPECT_EQ(cpu.pc, 514);
+
+    cpu.fetchOpcode();
+    cpu.executeOpcode();
+    cpu.updateTimers();
+
+    EXPECT_EQ(cpu.pc, 518);
+}
