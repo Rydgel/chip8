@@ -62,7 +62,7 @@ std::ostream &operator<<(std::ostream &outputStream, const Cpu &c)
 
     for (int i = 0; i < Constants::HEIGHT; i++) {
         for (int j = 0; j < Constants::WIDTH; j++) {
-            if (c.pixels[i * 64 + j] == 0) {
+            if (c.pixels[i * Constants::WIDTH + j] == 0) {
                 outputStream << " ";
             } else {
                 outputStream << "#";
