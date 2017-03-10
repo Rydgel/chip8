@@ -5,7 +5,7 @@
 TEST(cpu, op_00e0) {
     Memory memory;
     memory.loadBinary({ 0x00, 0xE0 });
-    Cpu cpu(memory);
+    Cpu cpu { memory };
     cpu.pixels[1] = 1;
 
     EXPECT_EQ(cpu.pc, 512);
@@ -21,7 +21,7 @@ TEST(cpu, op_00e0) {
 TEST(cpu, op_00ee) {
     Memory memory;
     memory.loadBinary({ 0x00, 0xEE });
-    Cpu cpu(memory);
+    Cpu cpu { memory };
     cpu.stack[0] = 0x42;
     cpu.sp = 1;
 
@@ -38,7 +38,7 @@ TEST(cpu, op_00ee) {
 TEST(cpu, op_1nnn) {
     Memory memory;
     memory.loadBinary({ 0x16, 0x66 });
-    Cpu cpu(memory);
+    Cpu cpu { memory };
 
     EXPECT_EQ(cpu.pc, 512);
 
@@ -47,4 +47,20 @@ TEST(cpu, op_1nnn) {
     cpu.updateTimers();
 
     EXPECT_EQ(cpu.pc, 0x666);
+}
+
+TEST(cpu, op_2nnn) {
+    Memory memory;
+    memory.loadBinary({ 0x26, 0x66 });
+    Cpu cpu { memory };
+
+    EXPECT_EQ(cpu.pc, 512);
+
+    cpu.fetchOpcode();
+    cpu.executeOpcode();
+    cpu.updateTimers();
+
+    EXPECT_EQ(cpu.pc, 0x666);
+    EXPECT_EQ(cpu.stack[0], 512);
+    EXPECT_EQ(cpu.sp, 1);
 }

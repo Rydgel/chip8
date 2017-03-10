@@ -25,6 +25,8 @@ struct Cpu
 
     Cpu(Memory & memory);
     ~Cpu() = default;
+    friend std::ostream& operator <<(std::ostream& outputStream, const Cpu& c);
+
     void fetchOpcode();
     void executeOpcode();
     void updateTimers();
@@ -34,6 +36,7 @@ private:
     void clearScreen();
     void returnSubroutine();
     void jumpToAdress();
+    void executeSubroutine();
 };
 
 
