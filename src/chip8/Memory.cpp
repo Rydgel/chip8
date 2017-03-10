@@ -29,7 +29,7 @@ void Memory::loadBinary(const std::vector<uint8_t> binary)
     }
 }
 
-const uint8_t Memory::fetchOpcode(const uint8_t pc)
+const uint16_t Memory::fetchOpcode(const uint16_t pc)
 {
     return storage_[pc] << 8 | storage_[pc + 1];
 }

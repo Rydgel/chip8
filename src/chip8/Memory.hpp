@@ -17,7 +17,7 @@ struct Memory
     void clearMemory();
     void initFontSet();
     void loadBinary(const std::vector<uint8_t> binary);
-    const uint8_t fetchOpcode(const uint8_t pc);
+    const uint16_t fetchOpcode(const uint16_t pc);
 
 private:
     std::array<uint8_t, NMEM> storage_;

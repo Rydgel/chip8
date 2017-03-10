@@ -9,6 +9,6 @@ include_directories(src)
 add_subdirectory(src)
 add_subdirectory(tests)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES app/main.cpp)
 add_executable(chip8_run ${SOURCE_FILES})
 target_link_libraries(chip8_run chip8)
