@@ -184,8 +184,8 @@ void Cpu::executeSubroutine()
 
 void Cpu::skipIfVXIsNN()
 {
-    auto x = (opcode & 0x0F00) >> 8;
-    auto nn = static_cast<uint8_t>(opcode & 0x00FF);
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto nn = static_cast<uint8_t>(opcode & 0x00FF);
     if (registers[x] == nn) {
         pc += 2;
     }
@@ -194,8 +194,8 @@ void Cpu::skipIfVXIsNN()
 
 void Cpu::skipIfVXIsNotNN()
 {
-    auto x = (opcode & 0x0F00) >> 8;
-    auto nn = static_cast<uint8_t>(opcode & 0x00FF);
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto nn = static_cast<uint8_t>(opcode & 0x00FF);
     if (registers[x] != nn) {
         pc += 2;
     }

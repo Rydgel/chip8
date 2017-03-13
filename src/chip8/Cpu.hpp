@@ -27,11 +27,12 @@ struct Cpu
     ~Cpu() = default;
     friend std::ostream& operator <<(std::ostream& outputStream, const Cpu& c);
 
+    void emulateCycle();
+private:
+
     void fetchOpcode();
     void executeOpcode();
     void updateTimers();
-    void emulateCycle();
-private:
 
     void clearScreen();
     void returnSubroutine();
