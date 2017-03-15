@@ -40,6 +40,7 @@ private:
     void executeSubroutine();
     void skipIfVXIsNN();
     void skipIfVXIsNotNN();
+    void skipIfRegXIsRegY();
 };
 
 

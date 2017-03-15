@@ -96,7 +96,7 @@ void Cpu::executeOpcode()
         case 0x2000: executeSubroutine(); break;
         case 0x3000: skipIfVXIsNN(); break;
         case 0x4000: skipIfVXIsNotNN(); break;
-        case 0x5000: /* todo */ break;
+        case 0x5000: skipIfRegXIsRegY(); break;
         case 0x6000: /* todo */ break;
         case 0x7000: /* todo */ break;
         case 0x8000:
@@ -197,6 +197,16 @@ void Cpu::skipIfVXIsNotNN()
     const auto x = (opcode & 0x0F00) >> 8;
     const auto nn = static_cast<uint8_t>(opcode & 0x00FF);
     if (registers[x] != nn) {
+        pc += 2;
+    }
+    pc += 2;
+}
+
+void Cpu::skipIfRegXIsRegY()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto y = (opcode & 0x00F0) >> 4;
+    if (registers[x] == registers[y]) {
         pc += 2;
     }
     pc += 2;

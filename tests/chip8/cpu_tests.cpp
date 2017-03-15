@@ -90,3 +90,22 @@ TEST(cpu, op_4nnn) {
 
     EXPECT_EQ(cpu.pc, 518);
 }
+
+TEST(cpu, op_5xy0) {
+    Memory memory;
+    memory.loadBinary({ 0x51, 0x20, 0x51, 0x30 });
+    Cpu cpu { memory };
+    cpu.registers[1] = 0x66;
+    cpu.registers[2] = 0x22;
+    cpu.registers[3] = 0x66;
+
+    EXPECT_EQ(cpu.pc, 512);
+
+    cpu.emulateCycle();
+
+    EXPECT_EQ(cpu.pc, 514);
+
+    cpu.emulateCycle();
+
+    EXPECT_EQ(cpu.pc, 518);
+}
