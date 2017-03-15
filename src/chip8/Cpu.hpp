@@ -41,6 +41,12 @@ private:
     void skipIfVXIsNN();
     void skipIfVXIsNotNN();
     void skipIfRegXIsRegY();
+    void setRegXToNN();
+    void addNNToRegX();
+    void setRegXToRegY();
+    void setRegXToRegXOrRegY();
+    void setRegXToRegXAndRegY();
+    void setRegXToRegXXorRegY();
 };
 
 

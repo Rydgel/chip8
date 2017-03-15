@@ -53,7 +53,7 @@ std::ostream &operator<<(std::ostream &outputStream, const Cpu &c)
             << "sp: " << std::hex << c.sp << std::endl;
 
     outputStream << "stack: ";
-    for (auto &s : c.stack) {
+    for (auto && s : c.stack) {
         outputStream << std::hex << s << " ";
     }
     outputStream << std::endl;
@@ -97,15 +97,15 @@ void Cpu::executeOpcode()
         case 0x3000: skipIfVXIsNN(); break;
         case 0x4000: skipIfVXIsNotNN(); break;
         case 0x5000: skipIfRegXIsRegY(); break;
-        case 0x6000: /* todo */ break;
-        case 0x7000: /* todo */ break;
+        case 0x6000: setRegXToNN(); break;
+        case 0x7000: addNNToRegX(); break;
         case 0x8000:
             switch (opcode & 0x000F) {
                 default: notImplemented(opcode); break;
-                case 0x0000: /* todo */ break;
-                case 0x0001: /* todo */ break;
-                case 0x0002: /* todo */ break;
-                case 0x0003: /* todo */ break;
+                case 0x0000: setRegXToRegY(); break;
+                case 0x0001: setRegXToRegXOrRegY(); break;
+                case 0x0002: setRegXToRegXAndRegY(); break;
+                case 0x0003: setRegXToRegXXorRegY(); break;
                 case 0x0004: /* todo */ break;
                 case 0x0005: /* todo */ break;
                 case 0x0006: /* todo */ break;
@@ -209,5 +209,53 @@ void Cpu::skipIfRegXIsRegY()
     if (registers[x] == registers[y]) {
         pc += 2;
     }
+    pc += 2;
+}
+
+void Cpu::setRegXToNN()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto nn = static_cast<uint8_t>(opcode & 0x00FF);
+    registers[x] = nn;
+    pc += 2;
+}
+
+void Cpu::addNNToRegX()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto nn = static_cast<uint8_t>(opcode & 0x00FF);
+    registers[x] += nn;
+    pc += 2;
+}
+
+void Cpu::setRegXToRegY()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto y = (opcode & 0x00F0) >> 4;
+    registers[x] = registers[y];
+    pc += 2;
+}
+
+void Cpu::setRegXToRegXOrRegY()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto y = (opcode & 0x00F0) >> 4;
+    registers[x] |= registers[y];
+    pc += 2;
+}
+
+void Cpu::setRegXToRegXAndRegY()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto y = (opcode & 0x00F0) >> 4;
+    registers[x] &= registers[y];
+    pc += 2;
+}
+
+void Cpu::setRegXToRegXXorRegY()
+{
+    const auto x = (opcode & 0x0F00) >> 8;
+    const auto y = (opcode & 0x00F0) >> 4;
+    registers[x] ^= registers[y];
     pc += 2;
 }
