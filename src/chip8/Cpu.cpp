@@ -24,7 +24,7 @@ Cpu::Cpu(Memory & memory)
     sp = 0;
 }
 
-std::ostream &operator<<(std::ostream &outputStream, const Cpu &c)
+std::ostream & operator<<(std::ostream &outputStream, const Cpu & c)
 {
     outputStream
             << "Chip8" << std::endl

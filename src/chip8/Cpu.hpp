@@ -25,7 +25,7 @@ struct Cpu
 
     Cpu(Memory & memory);
     ~Cpu() = default;
-    friend std::ostream& operator <<(std::ostream& outputStream, const Cpu& c);
+    friend std::ostream & operator <<(std::ostream& outputStream, const Cpu & c);
 
     void emulateCycle();
 private:
