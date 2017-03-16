@@ -320,7 +320,7 @@ TEST(cpu, op_8x0e) {
     cpu.emulateCycle();
 
     EXPECT_EQ(cpu.pc, 514);
-    EXPECT_EQ(cpu.registers[0x1], 0x81 << 1);
+    EXPECT_EQ(cpu.registers[0x1], static_cast<uint8_t>(0x81 << 1));
     EXPECT_EQ(cpu.registers[0xF], 0x1);
 }
 

@@ -4,12 +4,15 @@ set(HEADER_FILES
         chip8/Cpu.hpp
         chip8/Memory.hpp
         chip8/Constants.hpp
-        Chip8.hpp)
+        Chip8.hpp
+        chip8/Rom.hpp
+        utils/StringFormat.hpp)
 
 set(SOURCE_FILES
         chip8/Cpu.cpp
         chip8/Memory.cpp
-        Chip8.cpp)
+        Chip8.cpp
+        chip8/Rom.cpp)
 
 add_library(chip8 STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
