@@ -52,6 +52,11 @@ void Chip8::run()
             cpu_.drawFlag = false;
         }
 
+        if (cpu_.makeSound) {
+            sound_.playBeep();
+            cpu_.makeSound = false;
+        }
+
         timer_.updateFPS();
         timer_.update();
 

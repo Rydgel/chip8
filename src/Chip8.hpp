@@ -5,6 +5,7 @@
 #include <string>
 #include <graphics/Window.hpp>
 #include <graphics/Timer.hpp>
+#include <audio/Sound.hpp>
 #include "chip8/Memory.hpp"
 #include "chip8/Cpu.hpp"
 
@@ -21,6 +22,7 @@ private:
     Memory memory_;
     Cpu cpu_;
     Window window_;
+    Sound sound_;
     Timer timer_;
 };
 
