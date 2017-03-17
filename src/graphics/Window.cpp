@@ -25,7 +25,8 @@ Window::Window(const int width, const int height, const char *title)
     }
 
     glfwMakeContextCurrent(window_.get());
-    glfwSwapInterval(1);
+    // VSYNC
+    glfwSwapInterval(0);
     // Glad openGL loader
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 

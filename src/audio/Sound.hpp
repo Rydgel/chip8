@@ -4,6 +4,9 @@
 
 struct Sound
 {
+    Sound();
+    ~Sound() = default;
+
     void playBeep();
 };
 
