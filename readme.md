@@ -1,0 +1,4 @@
+## deps
+
+- OpenGL
+- OpenAL

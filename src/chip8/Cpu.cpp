@@ -1,12 +1,12 @@
 #include <iostream>
 #include <random>
 #include <thread>
-#include <utils/StringFormat.hpp>
+#include <fmt/format.h>
 #include "Cpu.hpp"
 
 static auto notImplemented(const uint16_t opcode)
 {
-    std::cout << "Error not implemented: " << stringFormat("0x%04x", opcode) << std::endl;
+    std::cout << "Error not implemented: " << fmt::format("{0:#x}", opcode) << std::endl;
 }
 
 Cpu::Cpu(Memory & memory)
@@ -32,32 +32,32 @@ std::ostream & operator<<(std::ostream & outputStream, const Cpu & c)
     outputStream
             << "Chip8" << std::endl
             << "draw flags: " << std::boolalpha << c.drawFlag << std::endl
-            << "opcode: " << stringFormat("0x%04x", c.opcode) << std::endl
-            << "index: " << stringFormat("0x%04x", c.index) << std::endl
-            << "pc: " << stringFormat("0x%04x", c.pc) << std::endl
-            << "t_delay: " << stringFormat("0x%02x", c.timerDelay) << std::endl
-            << "t_sound: " << stringFormat("0x%02x", c.timerSound) << std::endl
-            << "r0: " << stringFormat("0x%02x", c.registers[0]) << " "
-            << "r1: " << stringFormat("0x%02x", c.registers[1]) << " "
-            << "r2: " << stringFormat("0x%02x", c.registers[2]) << " "
-            << "r3: " << stringFormat("0x%02x", c.registers[3]) << " "
-            << "r4: " << stringFormat("0x%02x", c.registers[4]) << " "
-            << "r5: " << stringFormat("0x%02x", c.registers[5]) << " "
-            << "r6: " << stringFormat("0x%02x", c.registers[6]) << " "
-            << "r7: " << stringFormat("0x%02x", c.registers[7]) << " "
-            << "r8: " << stringFormat("0x%02x", c.registers[8]) << " "
-            << "r9: " << stringFormat("0x%02x", c.registers[9]) << " "
-            << "r10: " << stringFormat("0x%02x", c.registers[10]) << " "
-            << "r11: " << stringFormat("0x%02x", c.registers[11]) << " "
-            << "r12: " << stringFormat("0x%02x", c.registers[12]) << " "
-            << "r13: " << stringFormat("0x%02x", c.registers[13]) << " "
-            << "r14: " << stringFormat("0x%02x", c.registers[14]) << " "
-            << "r15: " << stringFormat("0x%02x", c.registers[15]) << std::endl
-            << "sp: " << stringFormat("0x%04x", c.sp) << std::endl;
+            << "opcode: " << fmt::format("{0:#x}", c.opcode) << std::endl
+            << "index: " << fmt::format("{0:#x}", c.index) << std::endl
+            << "pc: " << fmt::format("{0:#x}", c.pc) << std::endl
+            << "t_delay: " << fmt::format("{0:d}", c.timerDelay) << std::endl
+            << "t_sound: " << fmt::format("{0:d}", c.timerSound) << std::endl
+            << "r0: " << fmt::format("{0:#x}", c.registers[0]) << " "
+            << "r1: " << fmt::format("{0:#x}", c.registers[1]) << " "
+            << "r2: " << fmt::format("{0:#x}", c.registers[2]) << " "
+            << "r3: " << fmt::format("{0:#x}", c.registers[3]) << " "
+            << "r4: " << fmt::format("{0:#x}", c.registers[4]) << " "
+            << "r5: " << fmt::format("{0:#x}", c.registers[5]) << " "
+            << "r6: " << fmt::format("{0:#x}", c.registers[6]) << " "
+            << "r7: " << fmt::format("{0:#x}", c.registers[7]) << " "
+            << "r8: " << fmt::format("{0:#x}", c.registers[8]) << " "
+            << "r9: " << fmt::format("{0:#x}", c.registers[9]) << " "
+            << "r10: " << fmt::format("{0:#x}", c.registers[10]) << " "
+            << "r11: " << fmt::format("{0:#x}", c.registers[11]) << " "
+            << "r12: " << fmt::format("{0:#x}", c.registers[12]) << " "
+            << "r13: " << fmt::format("{0:#x}", c.registers[13]) << " "
+            << "r14: " << fmt::format("{0:#x}", c.registers[14]) << " "
+            << "r15: " << fmt::format("{0:#x}", c.registers[15]) << std::endl
+            << "sp: " << fmt::format("{0:#x}", c.sp) << std::endl;
 
     outputStream << "stack: ";
     for (auto && s : c.stack) {
-        outputStream << stringFormat("0x%04x", s) << " ";
+        outputStream << fmt::format("{0:#x}", s) << " ";
     }
     outputStream << std::endl;
     outputStream << "graphics: " << std::endl;

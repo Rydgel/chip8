@@ -3,12 +3,14 @@
 
 
 #include <string>
+#include <graphics/Window.hpp>
+#include <graphics/Timer.hpp>
 #include "chip8/Memory.hpp"
 #include "chip8/Cpu.hpp"
 
 struct Chip8
 {
-    Chip8() : cpu_(memory_) {};
+    Chip8();
     ~Chip8() = default;
 
     void loadRomFromFile(const std::string filePath);
@@ -18,6 +20,8 @@ private:
 
     Memory memory_;
     Cpu cpu_;
+    Window window_;
+    Timer timer_;
 };
 
 
