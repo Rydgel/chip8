@@ -10,7 +10,8 @@ set(HEADER_FILES
         graphics/opengl/OpenGLError.hpp
         graphics/Timer.hpp
         audio/Sound.hpp
-        graphics/opengl/Shader.hpp)
+        graphics/opengl/Shader.hpp
+        graphics/opengl/Vertex.hpp)
 
 set(SOURCE_FILES
         chip8/Cpu.cpp
