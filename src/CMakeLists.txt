@@ -9,7 +9,8 @@ set(HEADER_FILES
         graphics/Window.hpp
         graphics/opengl/OpenGLError.hpp
         graphics/Timer.hpp
-        audio/Sound.hpp)
+        audio/Sound.hpp
+        graphics/opengl/Shader.hpp)
 
 set(SOURCE_FILES
         chip8/Cpu.cpp
@@ -19,7 +20,8 @@ set(SOURCE_FILES
         graphics/Window.cpp
         graphics/opengl/OpenGLError.cpp
         graphics/Timer.cpp
-        audio/Sound.cpp)
+        audio/Sound.cpp
+        graphics/opengl/Shader.cpp)
 
 add_library(chip8 STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
