@@ -22,7 +22,7 @@ set(SOURCE_FILES
         graphics/opengl/OpenGLError.cpp
         graphics/Timer.cpp
         audio/Sound.cpp
-        graphics/opengl/Shader.cpp)
+        graphics/opengl/Shader.cpp graphics/opengl/VertexArray.cpp graphics/opengl/VertexArray.hpp)
 
 add_library(chip8 STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
