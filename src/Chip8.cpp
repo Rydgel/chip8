@@ -36,31 +36,33 @@ void Chip8::run()
         timer_.updateUPS();
 
         if (cpu_.drawFlag) {
-            glClearColor(52.0f / 255.0f, 73.0f / 255.0f, 94.0f / 255.0f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            glm::mat4 view;
-            view = camera_.getViewMatrix();
-            glm::mat4 projection;
-            projection = glm::perspective(camera_.getZoom(), 2.0f, 0.1f, 500.0f);
-            auto cameraPosition = camera_.getPosition();
-
-
-            int i = 0;
-            for (auto &pixel : cpu_.pixels) {
-                if (pixel > 0) {
-                    float x = - 32 + i % WIDTH;
-                    float y = 15 - i / WIDTH;
-                    float z = -40;
-                    auto pos = glm::vec3(x, y, z);
-                    glm::mat4 model;
-                    model = glm::translate(model, pos);
-                    renderer_.draw(model, view, projection, cameraPosition);
-                }
-                i ++;
-            }
-
+            // todo find a way to only draw when needed without weird clippings
+            // todo with framebuffer maybe?
             cpu_.drawFlag = false;
+        }
+
+        glClearColor(52.0f / 255.0f, 73.0f / 255.0f, 94.0f / 255.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glm::mat4 view;
+        view = camera_.getViewMatrix();
+        glm::mat4 projection;
+        projection = glm::perspective(camera_.getZoom(), 2.0f, 0.1f, 500.0f);
+        auto cameraPosition = camera_.getPosition();
+
+
+        int i = 0;
+        for (auto &pixel : cpu_.pixels) {
+            if (pixel > 0) {
+                float x = - 32 + i % WIDTH;
+                float y = 15 - i / WIDTH;
+                float z = -40;
+                auto pos = glm::vec3(x, y, z);
+                glm::mat4 model;
+                model = glm::translate(model, pos);
+                renderer_.draw(model, view, projection, cameraPosition);
+            }
+            i ++;
         }
 
         if (cpu_.makeSound) {
