@@ -15,6 +15,7 @@ struct Shader
     void setUniform(const std::string &name, int x);
     void setUniform(const std::string &name, float x);
     void setUniform(const std::string &name, glm::mat4 trans);
+    void setUniform(const std::string &name, glm::vec3 vec);
     // Use the program
     void bind();
     void unbind();

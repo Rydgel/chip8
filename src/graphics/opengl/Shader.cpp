@@ -96,6 +96,12 @@ void Shader::setUniform(const std::string &name, glm::mat4 trans)
     glUniformMatrix4fv(vertexColorLocation, 1, GL_FALSE, glm::value_ptr(trans));
 }
 
+void Shader::setUniform(const std::string &name, glm::vec3 vec)
+{
+    GLint vertexColorLocation = glGetUniformLocation(program_, name.c_str());
+    glUniform3f(vertexColorLocation, vec.x, vec.y, vec.z);
+}
+
 void Shader::bind()
 {
     glUseProgram(program_);

@@ -9,6 +9,12 @@ Chip8::Chip8()
 , window_(1280, 640, "Chip8 emulator")
 {
     timer_.init();
+    renderer_.bind();
+}
+
+Chip8::~Chip8()
+{
+    renderer_.unbind();
 }
 
 void Chip8::loadRomFromFile(const std::string filePath)
@@ -25,14 +31,35 @@ void Chip8::run()
         window_.pollEvents();
 
         cpu_.emulateCycle();
+        camera_.update(dt);
 
         timer_.updateUPS();
 
         if (cpu_.drawFlag) {
-            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+            glClearColor(52.0f / 255.0f, 73.0f / 255.0f, 94.0f / 255.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // std::cout << cpu_ << std::endl;
+            glm::mat4 view;
+            view = camera_.getViewMatrix();
+            glm::mat4 projection;
+            projection = glm::perspective(camera_.getZoom(), 2.0f, 0.1f, 500.0f);
+            auto cameraPosition = camera_.getPosition();
+
+
+            int i = 0;
+            for (auto &pixel : cpu_.pixels) {
+                if (pixel > 0) {
+                    float x = - 32 + i % WIDTH;
+                    float y = 15 - i / WIDTH;
+                    float z = -40;
+                    auto pos = glm::vec3(x, y, z);
+                    glm::mat4 model;
+                    model = glm::translate(model, pos);
+                    renderer_.draw(model, view, projection, cameraPosition);
+                }
+                i ++;
+            }
+
             cpu_.drawFlag = false;
         }
 

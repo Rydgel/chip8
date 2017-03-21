@@ -11,7 +11,16 @@ set(HEADER_FILES
         graphics/Timer.hpp
         audio/Sound.hpp
         graphics/opengl/Shader.hpp
-        graphics/opengl/Vertex.hpp)
+        graphics/opengl/VertexAttribute.hpp
+        graphics/opengl/VertexArray.hpp
+        graphics/opengl/Buffer.hpp
+        graphics/opengl/ArrayBuffer.hpp
+        graphics/opengl/IndexBuffer.hpp
+        graphics/opengl/Mesh.hpp
+        graphics/CubeModel.hpp
+        graphics/Chip8Renderer.hpp
+        graphics/Camera.hpp
+        )
 
 set(SOURCE_FILES
         chip8/Cpu.cpp
@@ -22,7 +31,14 @@ set(SOURCE_FILES
         graphics/opengl/OpenGLError.cpp
         graphics/Timer.cpp
         audio/Sound.cpp
-        graphics/opengl/Shader.cpp graphics/opengl/VertexArray.cpp graphics/opengl/VertexArray.hpp)
+        graphics/opengl/Shader.cpp
+        graphics/opengl/VertexArray.cpp
+        graphics/opengl/Buffer.cpp
+        graphics/opengl/Mesh.cpp
+        graphics/CubeModel.cpp
+        graphics/Chip8Renderer.cpp
+        graphics/Camera.cpp
+        )
 
 add_library(chip8 STATIC ${SOURCE_FILES} ${HEADER_FILES})
 

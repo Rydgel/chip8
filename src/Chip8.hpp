@@ -6,13 +6,15 @@
 #include <graphics/Window.hpp>
 #include <graphics/Timer.hpp>
 #include <audio/Sound.hpp>
+#include <graphics/Chip8Renderer.hpp>
+#include <graphics/Camera.hpp>
 #include "chip8/Memory.hpp"
 #include "chip8/Cpu.hpp"
 
 struct Chip8
 {
     Chip8();
-    ~Chip8() = default;
+    ~Chip8();
 
     void loadRomFromFile(const std::string filePath);
     void run();
@@ -24,6 +26,9 @@ private:
     Window window_;
     Sound sound_;
     Timer timer_;
+    // graphics
+    Chip8Renderer renderer_;
+    Camera camera_;
 };
 
 
