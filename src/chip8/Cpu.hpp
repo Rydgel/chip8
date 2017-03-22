@@ -27,12 +27,14 @@ struct Cpu
     ~Cpu() = default;
     friend std::ostream & operator <<(std::ostream & outputStream, const Cpu & c);
 
-    void emulateCycle();
+    void emulateCycle(const float dt);
 private:
 
-    void fetchOpcode();
-    void executeOpcode();
-    void updateTimers();
+    float globalDelta_ = 0;
+
+    void fetchOpcode(const float dt);
+    void executeOpcode(const float dt);
+    void updateTimers(const float dt);
 
     /// 0xNNN
     /// Jump to a machine code routine at nnn.

@@ -10,6 +10,7 @@ Chip8::Chip8()
 {
     timer_.init();
     renderer_.bind();
+    buffering_.fill(0);
 }
 
 Chip8::~Chip8()
@@ -30,35 +31,19 @@ void Chip8::run()
 
         window_.pollEvents();
 
-        cpu_.emulateCycle();
+        cpu_.emulateCycle(dt);
         camera_.update(dt);
 
         timer_.updateUPS();
 
+        renderer_.clear();
+
         if (cpu_.drawFlag) {
-            // todo find a way to only draw when needed without weird clippings
-            // todo with framebuffer maybe?
+            buffering_ = cpu_.pixels;
             cpu_.drawFlag = false;
         }
 
-        glClearColor(52.0f / 255.0f, 73.0f / 255.0f, 94.0f / 255.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // todo move that into renderer
-        auto view = camera_.getViewMatrix();
-        auto projection = glm::perspective(camera_.getZoom(), 2.0f, 0.1f, 500.0f);
-        auto cameraPosition = camera_.getPosition();
-
-        int i = 0;
-        for (const auto & pixel : cpu_.pixels) {
-            if (pixel > 0) {
-                auto pos = glm::vec3(i % WIDTH, -i / WIDTH, -40);
-                glm::mat4 model;
-                model = glm::translate(model, pos);
-                renderer_.draw(model, view, projection, cameraPosition);
-            }
-            i ++;
-        }
+        renderer_.drawPixels(buffering_, camera_);
 
         if (cpu_.makeSound) {
             sound_.playBeep();

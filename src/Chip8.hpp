@@ -29,6 +29,7 @@ private:
     // graphics
     Chip8Renderer renderer_;
     Camera camera_;
+    std::array<uint8_t, NPIXELS> buffering_ {};
 };
 
 

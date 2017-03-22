@@ -79,12 +79,12 @@ std::ostream & operator<<(std::ostream & outputStream, const Cpu & c)
     return outputStream;
 }
 
-void Cpu::fetchOpcode()
+void Cpu::fetchOpcode(const float dt)
 {
     opcode = memory.fetchOpcode(pc);
 }
 
-void Cpu::executeOpcode()
+void Cpu::executeOpcode(const float dt)
 {
     switch (opcode & 0xF000) {
         default: notImplemented(opcode); break;
@@ -145,24 +145,29 @@ void Cpu::executeOpcode()
     }
 }
 
-void Cpu::updateTimers()
+void Cpu::updateTimers(const float dt)
 {
-    if (timerDelay > 0) {
-        timerDelay -= 1;
-    }
+    globalDelta_ += dt;
+    while (globalDelta_ > (1 / 60)) {
+        globalDelta_ = 0;
 
-    makeSound = false;
-    if (timerSound > 0) {
-        makeSound = timerSound == 1;
-        timerSound -= 1;
+        if (timerDelay > 0) {
+            timerDelay -= 1;
+        }
+
+        makeSound = false;
+        if (timerSound > 0) {
+            makeSound = timerSound == 1;
+            timerSound -= 1;
+        }
     }
 }
 
-void Cpu::emulateCycle()
+void Cpu::emulateCycle(const float dt)
 {
-    fetchOpcode();
-    executeOpcode();
-    updateTimers();
+    fetchOpcode(dt);
+    executeOpcode(dt);
+    updateTimers(dt);
 }
 
 void Cpu::jumpToRoutine()
