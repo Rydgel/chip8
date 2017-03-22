@@ -385,16 +385,19 @@ void Cpu::draw()
 
     registers[0xF] = 0;
 
-    for (int yline = 0; yline < height; yline ++) {
-        auto pixel = memory.storage[index + yline];
-        for (int xline = 0; xline < 8; xline ++) {
-            auto address = x + xline + ((y + yline) * WIDTH);
-            if ((pixel & (0x80 >> xline)) != 0) {
+    for (int yy = 0; yy < height; yy ++) {
+        auto pixelRow = memory.storage[index + yy];
+        for (int xx = 0; xx < 8; xx ++) {
+            if ((pixelRow & 0x80) != 0) {
+                auto screenY = (y + yy) % HEIGHT;
+                auto screenX = (x + xx) % WIDTH;
+                auto address = (screenY * WIDTH) + screenX;
                 if (pixels[address] == 1) {
                     registers[0xF] = 1;
                 }
                 pixels[address] ^= 1;
             }
+            pixelRow <<= 1;
         }
     }
 
