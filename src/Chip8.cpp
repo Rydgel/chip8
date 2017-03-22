@@ -36,13 +36,12 @@ void Chip8::run()
 
         timer_.updateUPS();
 
-        renderer_.clear();
-
         if (cpu_.drawFlag) {
             buffering_ = cpu_.pixels;
             cpu_.drawFlag = false;
         }
 
+        renderer_.clear();
         renderer_.drawPixels(buffering_, camera_);
 
         if (cpu_.makeSound) {

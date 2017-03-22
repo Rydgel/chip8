@@ -10,7 +10,7 @@ TEST(cpu, op_00e0) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.pixels[1], 0);
@@ -25,7 +25,7 @@ TEST(cpu, op_00ee) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 0x44);
     EXPECT_EQ(cpu.sp, 0);
@@ -38,7 +38,7 @@ TEST(cpu, op_1nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 0x666);
 }
@@ -50,7 +50,7 @@ TEST(cpu, op_2nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 0x666);
     EXPECT_EQ(cpu.stack[0], 512);
@@ -65,11 +65,11 @@ TEST(cpu, op_3nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 518);
 }
@@ -82,11 +82,11 @@ TEST(cpu, op_4nnn) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 518);
 }
@@ -101,11 +101,11 @@ TEST(cpu, op_5xy0) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 518);
 }
@@ -118,7 +118,7 @@ TEST(cpu, op_6xnn) {
     EXPECT_EQ(cpu.registers[0xA], 0);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.registers[0xA], 0x2F);
     EXPECT_EQ(cpu.pc, 514);
@@ -134,7 +134,7 @@ TEST(cpu, op_7xnn) {
     EXPECT_EQ(cpu.registers[0xA], 0xB);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.registers[0xA], 0x2F + 0xB);
     EXPECT_EQ(cpu.pc, 514);
@@ -151,7 +151,7 @@ TEST(cpu, op_8xy0) {
     EXPECT_EQ(cpu.registers[0x2], 0xC);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.registers[0xA], 0xC);
     EXPECT_EQ(cpu.registers[0x2], 0xC);
@@ -169,7 +169,7 @@ TEST(cpu, op_8xy1) {
     EXPECT_EQ(cpu.registers[0x2], 0xC);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.registers[0xA], 0xB | 0xC);
     EXPECT_EQ(cpu.registers[0x2], 0xC);
@@ -187,7 +187,7 @@ TEST(cpu, op_8xy2) {
     EXPECT_EQ(cpu.registers[0x2], 0xC);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.registers[0xA], 0xB & 0xC);
     EXPECT_EQ(cpu.registers[0x2], 0xC);
@@ -205,7 +205,7 @@ TEST(cpu, op_8xy3) {
     EXPECT_EQ(cpu.registers[0x2], 0xC);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.registers[0xA], 0xB ^ 0xC);
     EXPECT_EQ(cpu.registers[0x2], 0xC);
@@ -223,14 +223,14 @@ TEST(cpu, op_8xy4) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[0xA], 0xFF);
     EXPECT_EQ(cpu.registers[0xB], 0xFF);
     EXPECT_EQ(cpu.registers[0xF], 0x00);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 516);
     EXPECT_EQ(cpu.registers[0xB], 0x00);
@@ -247,7 +247,7 @@ TEST(cpu, op_8xy5) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[0xA], 0xFF);
@@ -257,7 +257,7 @@ TEST(cpu, op_8xy5) {
     cpu.registers[0xA] = 0x02;
     cpu.registers[0xB] = 0x01;
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 516);
     EXPECT_EQ(cpu.registers[0xA], 0x01);
@@ -274,7 +274,7 @@ TEST(cpu, op_8x06) {
     EXPECT_EQ(cpu.pc, 512);
     EXPECT_EQ(cpu.registers[0xF], 0);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[0x1], 0b01);
@@ -290,7 +290,7 @@ TEST(cpu, op_8xy7) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[0xA], 0x01);
@@ -300,7 +300,7 @@ TEST(cpu, op_8xy7) {
     cpu.registers[0xA] = 0x02;
     cpu.registers[0xB] = 0x01;
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 516);
     EXPECT_EQ(cpu.registers[0xA], 0xFF);
@@ -317,7 +317,7 @@ TEST(cpu, op_8x0e) {
     EXPECT_EQ(cpu.pc, 512);
     EXPECT_EQ(cpu.registers[0xF], 0);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[0x1], static_cast<uint8_t>(0x81 << 1));
@@ -334,11 +334,11 @@ TEST(cpu, op_9xy0) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 518);
 }
@@ -351,7 +351,7 @@ TEST(cpu, op_annn) {
     EXPECT_EQ(cpu.index, 0);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.index, 0x666);
     EXPECT_EQ(cpu.pc, 514);
@@ -366,7 +366,7 @@ TEST(cpu, op_bnnn) {
     EXPECT_EQ(cpu.index, 0);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.index, 0);
     EXPECT_EQ(cpu.pc, 0x666 + 0x5);
@@ -381,12 +381,12 @@ TEST(cpu, op_ex9e) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     cpu.key[1] = 1;
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 518);
 }
@@ -400,11 +400,11 @@ TEST(cpu, op_exa1) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
     EXPECT_EQ(cpu.pc, 514);
     cpu.key[1] = 0;
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
     EXPECT_EQ(cpu.pc, 518);
 }
 
@@ -416,7 +416,7 @@ TEST(cpu, op_fx07) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[1], 10);
@@ -431,12 +431,12 @@ TEST(cpu, op_fx0a) {
     EXPECT_EQ(cpu.key[1], 0);
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 512);
     cpu.key[1] = 1;
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[1], 1);
 }
@@ -449,7 +449,7 @@ TEST(cpu, op_fx15) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.timerDelay, 9);
@@ -463,7 +463,7 @@ TEST(cpu, op_fx18) {
     cpu.registers[1] = 10;
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.timerSound, 9);
@@ -478,7 +478,7 @@ TEST(cpu, op_fx1e) {
     const auto initIndex = cpu.index;
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.index, initIndex + cpu.registers[1]);
@@ -493,7 +493,7 @@ TEST(cpu, op_fx29) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.index, cpu.registers[1] * 5);
@@ -511,7 +511,7 @@ TEST(cpu, op_fx55) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.memory.storage[10], 0xAB);
@@ -529,7 +529,7 @@ TEST(cpu, op_fx65) {
 
     EXPECT_EQ(cpu.pc, 512);
 
-    cpu.emulateCycle();
+    cpu.emulateCycle(1.0f);
 
     EXPECT_EQ(cpu.pc, 514);
     EXPECT_EQ(cpu.registers[0], 0xAB);

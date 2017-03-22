@@ -8,6 +8,7 @@
 #include <audio/Sound.hpp>
 #include <graphics/Chip8Renderer.hpp>
 #include <graphics/Camera.hpp>
+#include <graphics/InputManager.hpp>
 #include "chip8/Memory.hpp"
 #include "chip8/Cpu.hpp"
 
@@ -26,6 +27,7 @@ private:
     Window window_;
     Sound sound_;
     Timer timer_;
+    InputManager inputManager_;
     // graphics
     Chip8Renderer renderer_;
     Camera camera_;
