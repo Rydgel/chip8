@@ -44,6 +44,7 @@ void Chip8::run()
         glClearColor(52.0f / 255.0f, 73.0f / 255.0f, 94.0f / 255.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // todo move that into renderer
         auto view = camera_.getViewMatrix();
         auto projection = glm::perspective(camera_.getZoom(), 2.0f, 0.1f, 500.0f);
         auto cameraPosition = camera_.getPosition();
