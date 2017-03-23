@@ -38,6 +38,7 @@ void Chip8::run()
 
         cpu_.key = inputManager_.toChip8KeyStates();
         cpu_.emulateCycle(dt);
+        cpu_.emulateCycle(dt);
         camera_.update(dt);
 
         timer_.updateUPS();

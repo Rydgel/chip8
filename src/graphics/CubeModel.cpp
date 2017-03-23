@@ -26,8 +26,6 @@ void CubeModel::upload()
     indicesBuffer.bind();
     indicesBuffer.setData(mesh.getIndices(), Usage::Static);
 
-    // todo add data to VertexAttributes normals
-
     glEnableVertexAttribArray(0);
     positionsBuffer.bind();
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
@@ -39,14 +37,14 @@ void CubeModel::upload()
     glEnableVertexAttribArray(2);
     normalsBuffer.bind();
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
+
+    indicesBuffer.bind();
 }
 
 void CubeModel::draw()
 {
-    indicesBuffer.bind();
     auto indicesSize = static_cast<GLsizei>(mesh.getIndices().size());
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
-    indicesBuffer.unbind();
 }
 
 void CubeModel::cleanup()
