@@ -4,6 +4,7 @@
 #include <glad.h>
 #include <GLFW/glfw3.h>
 #include <memory>
+#include "InputManager.hpp"
 
 
 struct Window
@@ -15,7 +16,7 @@ struct Window
 
     using GLFWwindowPtr = std::unique_ptr<GLFWwindow, DestroyglfwWin>;
 
-    Window(const int width, const int height, const char *title);
+    Window(InputManager & im, const int width, const int height, const char *title);
     ~Window() = default;
 
     void pollEvents();
@@ -30,7 +31,9 @@ struct Window
 private:
 
     GLFWwindowPtr window_;
+    InputManager & inputManager_;
     void setupEventCallbacks();
+    void onKeyboardEvent(int key, int scancode, int action, int mods);
 };
 
 

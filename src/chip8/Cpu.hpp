@@ -32,7 +32,7 @@ private:
 
     float globalDelta_ = 0;
 
-    void fetchOpcode(const float dt);
+    void fetchOpcode();
     void executeOpcode(const float dt);
     void updateTimers(const float dt);
 

@@ -1,7 +1,8 @@
 #include <stdexcept>
 #include "Window.hpp"
 
-Window::Window(const int width, const int height, const char *title)
+Window::Window(InputManager & im, const int width, const int height, const char *title)
+: inputManager_(im)
 {
     // Initialise GLFW
     if (!glfwInit()) {
@@ -58,6 +59,10 @@ bool Window::isOpen()
 void Window::pollEvents()
 {
     glfwPollEvents();
+    // Mouse position
+    double xpos, ypos;
+    glfwGetCursorPos(window_.get(), &xpos, &ypos);
+    inputManager_.setMousePosition(xpos, ypos);
 }
 
 void Window::swapBuffers()
@@ -103,7 +108,20 @@ void Window::setupEventCallbacks()
     glfwSetWindowUserPointer(windowRawPtr, this);
 
     glfwSetKeyCallback(windowRawPtr, (GLFWkeyfun) [](auto glfwWindow, auto... params) {
-        // auto window = static_cast<Window *>(glfwGetWindowUserPointer(glfwWindow));
-        // window->onKeyboardEvent(params...);
+        auto window = static_cast<Window *>(glfwGetWindowUserPointer(glfwWindow));
+        window->onKeyboardEvent(params...);
     });
+}
+
+void Window::onKeyboardEvent(int key, int scancode, int action, int mods)
+{
+    switch (action) {
+        default: break;
+        case GLFW_PRESS:
+            inputManager_.keyPushed(key);
+            break;
+        case GLFW_RELEASE:
+            inputManager_.keyReleased(key);
+            break;
+    }
 }

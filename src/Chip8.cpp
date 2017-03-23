@@ -6,7 +6,8 @@
 
 Chip8::Chip8()
 : cpu_(memory_)
-, window_(1280, 640, "Chip8 emulator")
+, window_(inputManager_, 1280, 640, "Chip8 emulator")
+, camera_(inputManager_)
 {
     timer_.init();
     renderer_.bind();
@@ -31,6 +32,11 @@ void Chip8::run()
 
         window_.pollEvents();
 
+        if (inputManager_.getKeyState(GLFW_KEY_ESCAPE)) {
+            window_.closeWindow();
+        }
+
+        cpu_.key = inputManager_.toChip8KeyStates();
         cpu_.emulateCycle(dt);
         camera_.update(dt);
 

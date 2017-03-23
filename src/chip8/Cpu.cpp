@@ -79,7 +79,7 @@ std::ostream & operator<<(std::ostream & outputStream, const Cpu & c)
     return outputStream;
 }
 
-void Cpu::fetchOpcode(const float dt)
+void Cpu::fetchOpcode()
 {
     opcode = memory.fetchOpcode(pc);
 }
@@ -165,7 +165,7 @@ void Cpu::updateTimers(const float dt)
 
 void Cpu::emulateCycle(const float dt)
 {
-    fetchOpcode(dt);
+    fetchOpcode();
     executeOpcode(dt);
     updateTimers(dt);
 }
@@ -460,7 +460,7 @@ void Cpu::waitKeypress()
 
     if (pc == oldPc) {
         // prevent bursting cpu
-        std::this_thread::sleep_for(10ms);
+        std::this_thread::sleep_for(1ms);
     }
 }
 

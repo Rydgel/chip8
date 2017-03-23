@@ -1,8 +1,9 @@
 #include <GLFW/glfw3.h>
 #include "Camera.hpp"
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch)
-: front_(glm::vec3(0.0f, 0.0f, -10.0f))
+Camera::Camera(InputManager & im, glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch)
+: inputManager_(im)
+, front_(glm::vec3(0.0f, 0.0f, -10.0f))
 , movementSpeed_(SPEED)
 , mouseSensitivity_(SENSITIVITY)
 , zoom_(ZOOM)
@@ -13,12 +14,12 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch)
     pitch_ = pitch;
 
     updateCameraVectors();
-    setupEvents();
 }
 
-Camera::Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw,
-               GLfloat pitch)
-: front_(glm::vec3(0.0f, 0.0f, -10.0f))
+Camera::Camera(InputManager & im, GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY,
+               GLfloat upZ, GLfloat yaw, GLfloat pitch)
+: inputManager_(im)
+, front_(glm::vec3(0.0f, 0.0f, -10.0f))
 , movementSpeed_(SPEED)
 , mouseSensitivity_(SENSITIVITY)
 , zoom_(ZOOM)
@@ -29,40 +30,49 @@ Camera::Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat up
     pitch_ = pitch;
 
     updateCameraVectors();
-    setupEvents();
 }
 
 void Camera::updatePosition(const float dt)
 {
-    // todo
     GLfloat velocity = movementSpeed_ * dt;
-    if (keyStates_[GLFW_KEY_W])
+    if (inputManager_.getKeyState(GLFW_KEY_W))
         position_ += front_ * velocity;
-    if (keyStates_[GLFW_KEY_S])
+    if (inputManager_.getKeyState(GLFW_KEY_S))
         position_ -= front_ * velocity;
-    if (keyStates_[GLFW_KEY_A])
+    if (inputManager_.getKeyState(GLFW_KEY_A))
         position_ -= right_ * velocity;
-    if (keyStates_[GLFW_KEY_D])
+    if (inputManager_.getKeyState(GLFW_KEY_D))
         position_ += right_ * velocity;
-    if (keyStates_[GLFW_KEY_SPACE])
+    if (inputManager_.getKeyState(GLFW_KEY_SPACE))
         position_.y += velocity;
-    if (keyStates_[GLFW_KEY_LEFT_CONTROL])
+    if (inputManager_.getKeyState(GLFW_KEY_LEFT_CONTROL))
         position_.y -= velocity;
 }
 
 void Camera::updatePitch(const float dt)
 {
-
+    GLfloat velocity = movementSpeed_ * dt;
+    if (inputManager_.getKeyState(GLFW_KEY_LEFT))
+        pitch_ -= velocity;
+    if (inputManager_.getKeyState(GLFW_KEY_RIGHT))
+        pitch_ += velocity;
 }
 
 void Camera::updateZoom(const float dt)
 {
-
+    GLfloat velocity = movementSpeed_ * dt / 10;
+    if (inputManager_.getKeyState(GLFW_KEY_DOWN))
+        zoom_ -= velocity;
+    if (inputManager_.getKeyState(GLFW_KEY_UP))
+        zoom_ += velocity;
 }
 
 void Camera::update(const float dt)
 {
+    updateMouseCoord(dt);
     updatePosition(dt);
+    updateZoom(dt);
+    updatePitch(dt);
     // Update Front, Right and Up Vectors using the updated Eular angles
     updateCameraVectors();
 }
@@ -114,7 +124,24 @@ void Camera::updateCameraVectors()
     up_ = glm::normalize(glm::cross(right_, front_));
 }
 
-void Camera::setupEvents()
+void Camera::updateMouseCoord(const float dt)
 {
-    // todo dododdo?
+    auto mousePos = inputManager_.getMousePosition();
+    auto xpos = mousePos.xPos;
+    auto ypos = mousePos.yPos;
+
+    if (firstMouseMove_) {
+        lastX_ = (float) xpos;
+        lastY_ = (float) ypos;
+        firstMouseMove_ = false;
+    }
+
+    GLfloat xoffset = (float) xpos - lastX_;
+    // Reversed since y-coordinates go from bottom to left
+    GLfloat yoffset = lastY_ - (float) ypos;
+
+    lastX_ = (float) xpos;
+    lastY_ = (float) ypos;
+
+    processMouseMovement(xoffset, yoffset);
 }
