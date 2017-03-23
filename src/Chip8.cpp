@@ -52,7 +52,8 @@ void Chip8::run()
 
         if (cpu_.makeSound) {
             sound_.playBeep();
-            cpu_.makeSound = false;
+        } else {
+            sound_.stopSound();
         }
 
         timer_.updateFPS();

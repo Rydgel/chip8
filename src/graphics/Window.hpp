@@ -10,10 +10,7 @@
 struct Window
 {
     struct DestroyglfwWin
-    {
-        void operator()(GLFWwindow *ptr) { glfwDestroyWindow(ptr); }
-    };
-
+    { void operator()(GLFWwindow *ptr) { glfwDestroyWindow(ptr); } };
     using GLFWwindowPtr = std::unique_ptr<GLFWwindow, DestroyglfwWin>;
 
     Window(InputManager & im, const int width, const int height, const char *title);

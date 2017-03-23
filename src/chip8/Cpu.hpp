@@ -30,10 +30,11 @@ struct Cpu
     void emulateCycle(const float dt);
 private:
 
-    float globalDelta_ = 0;
+    float globalCyclesDelta_ = 0;
+    float globalTimersDelta_ = 0;
 
     void fetchOpcode();
-    void executeOpcode(const float dt);
+    void executeOpcode();
     void updateTimers(const float dt);
 
     /// 0xNNN

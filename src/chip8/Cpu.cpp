@@ -84,7 +84,7 @@ void Cpu::fetchOpcode()
     opcode = memory.fetchOpcode(pc);
 }
 
-void Cpu::executeOpcode(const float dt)
+void Cpu::executeOpcode()
 {
     switch (opcode & 0xF000) {
         default: notImplemented(opcode); break;
@@ -147,9 +147,9 @@ void Cpu::executeOpcode(const float dt)
 
 void Cpu::updateTimers(const float dt)
 {
-    globalDelta_ += dt;
-    while (globalDelta_ > (1 / 60)) {
-        globalDelta_ = 0;
+    globalTimersDelta_ += dt;
+    while (globalTimersDelta_ > (1.0f / 60.0f)) {
+        globalTimersDelta_ = 0;
 
         if (timerDelay > 0) {
             timerDelay -= 1;
@@ -157,7 +157,7 @@ void Cpu::updateTimers(const float dt)
 
         makeSound = false;
         if (timerSound > 0) {
-            makeSound = timerSound == 1;
+            makeSound = timerSound >= 1;
             timerSound -= 1;
         }
     }
@@ -165,9 +165,15 @@ void Cpu::updateTimers(const float dt)
 
 void Cpu::emulateCycle(const float dt)
 {
-    fetchOpcode();
-    executeOpcode(dt);
-    updateTimers(dt);
+    // slow down cpu
+    globalCyclesDelta_ += dt;
+    while (globalCyclesDelta_ > (1.0f / 500.0f)) {
+        globalCyclesDelta_ = 0;
+
+        fetchOpcode();
+        executeOpcode();
+        updateTimers(dt);
+    }
 }
 
 void Cpu::jumpToRoutine()
