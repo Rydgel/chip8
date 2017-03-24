@@ -20,6 +20,7 @@ set(HEADER_FILES
         graphics/CubeModel.hpp
         graphics/Chip8Renderer.hpp
         graphics/Camera.hpp
+        graphics/InputManager.hpp
         )
 
 set(SOURCE_FILES
@@ -38,8 +39,7 @@ set(SOURCE_FILES
         graphics/CubeModel.cpp
         graphics/Chip8Renderer.cpp
         graphics/Camera.cpp
-        graphics/InputManager.cpp
-        graphics/InputManager.hpp)
+        graphics/InputManager.cpp)
 
 add_library(chip8 STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
