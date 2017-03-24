@@ -3,9 +3,16 @@
 
 int main(int argc, char **argv)
 {
-    // todo choose Rom from CLI
+    std::string filePath;
+
+    if (argc > 1) {
+        filePath = argv[1];
+    } else {
+        filePath = "roms/UFO";
+    }
+
     Chip8 chip8;
-    chip8.loadRomFromFile("roms/VBRIX");
+    chip8.loadRomFromFile(filePath);
     chip8.run();
 
     return 0;
