@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 #include <array>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 struct MousePosition
 {
@@ -13,9 +13,6 @@ struct MousePosition
 
 struct InputManager
 {
-    InputManager() = default;
-    ~InputManager() = default;
-
     void keyPushed(int key);
     void keyReleased(int key);
     int getKeyState(int key);

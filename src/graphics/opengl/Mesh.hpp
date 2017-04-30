@@ -8,14 +8,11 @@
 
 struct Mesh
 {
-    Mesh() = default;
-    ~Mesh() = default;
-
-    void addPosition(const glm::vec3 position);
-    void addIndices(const GLuint indice);
-    void addNormal(const glm::vec3 normal);
-    void addUvs(const glm::vec2 uv);
-    void addColors(const glm::vec3 color);
+    void addPosition(glm::vec3 position);
+    void addIndices(GLuint indice);
+    void addNormal(glm::vec3 normal);
+    void addUvs(glm::vec2 uv);
+    void addColors(glm::vec3 color);
 
     const std::vector<glm::vec3> getPositions() const;
     const std::vector<GLuint> getIndices() const;

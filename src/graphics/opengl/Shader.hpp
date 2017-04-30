@@ -26,12 +26,4 @@ private:
     GLuint program_;
 };
 
-// RAII
-struct BoundShader
-{
-    BoundShader(Shader &sh): sh(sh) { sh.bind(); }
-    ~BoundShader() { sh.unbind(); }
-    Shader &sh;
-};
-
 #endif //CHIP8_SHADER_HPP

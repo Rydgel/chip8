@@ -16,13 +16,12 @@ const GLfloat ZOOM = 45.0f;
 
 struct Camera
 {
-    Camera(InputManager & im, glm::vec3 position = glm::vec3(32.0f, -15.0f, 0.0f),
+    explicit Camera(InputManager & im, glm::vec3 position = glm::vec3(32.0f, -15.0f, 0.0f),
            glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH);
     Camera(InputManager & im, GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX,
            GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch);
-    ~Camera() = default;
 
-    void update(const float dt);
+    void update(float dt);
     const GLfloat getZoom();
     const glm::vec3 getPosition();
     const glm::mat4 getViewMatrix();
@@ -50,10 +49,10 @@ private:
 
     // Calculates the front vector from the Camera's (updated) Eular Angles
     void updateCameraVectors();
-    void updateMouseCoord(const float dt);
-    void updatePosition(const float dt);
-    void updatePitch(const float dt);
-    void updateZoom(const float dt);
+    void updateMouseCoord(float dt);
+    void updatePosition(float dt);
+    void updatePitch(float dt);
+    void updateZoom(float dt);
     void processMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = (GLboolean) true);
 };
 

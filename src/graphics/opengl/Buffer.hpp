@@ -12,12 +12,13 @@ enum class Usage
 
 struct Buffer
 {
-    Buffer(GLenum type);
+    explicit Buffer(GLenum type);
     virtual ~Buffer();
 
     Buffer(const Buffer & buffer) = delete;
-    Buffer(Buffer && other);
-    Buffer & operator=(Buffer && other);
+    Buffer & operator=(Buffer & other) = delete;
+    Buffer(Buffer && other) noexcept;
+    Buffer & operator=(Buffer && other) noexcept;
 
     void bind() const;
     void unbind() const;

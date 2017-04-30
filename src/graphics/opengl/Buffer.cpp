@@ -13,14 +13,14 @@ Buffer::~Buffer()
     }
 }
 
-Buffer::Buffer(Buffer && other)
+Buffer::Buffer(Buffer && other) noexcept
 : id_(other.id_)
 , type_(other.type_)
 {
     other.id_ = 0;
 }
 
-Buffer & Buffer::operator=(Buffer && other)
+Buffer & Buffer::operator=(Buffer && other) noexcept
 {
     id_ = other.id_;
     type_ = other.type_;

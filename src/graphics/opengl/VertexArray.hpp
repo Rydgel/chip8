@@ -9,8 +9,9 @@ struct VertexArray
     ~VertexArray();
 
     VertexArray(const VertexArray & vertexArray) = delete;
-    VertexArray(VertexArray && vertexArray);
-    VertexArray & operator=(VertexArray && vertexArray);
+    VertexArray & operator=(VertexArray & vertexArray) = delete;
+    VertexArray(VertexArray && vertexArray) noexcept;
+    VertexArray & operator=(VertexArray && vertexArray) noexcept;
 
     void bind() const;
     void unbind() const;

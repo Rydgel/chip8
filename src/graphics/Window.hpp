@@ -13,8 +13,7 @@ struct Window
     { void operator()(GLFWwindow *ptr) { glfwDestroyWindow(ptr); } };
     using GLFWwindowPtr = std::unique_ptr<GLFWwindow, DestroyglfwWin>;
 
-    Window(InputManager & im, const int width, const int height, const char *title);
-    ~Window() = default;
+    Window(InputManager & im, int width, int height, const char *title);
 
     void pollEvents();
     bool isOpen();

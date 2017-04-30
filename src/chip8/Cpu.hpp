@@ -24,7 +24,6 @@ struct Cpu
     std::array<uint8_t, 16> key;
 
     Cpu(Memory & memory);
-    ~Cpu() = default;
     friend std::ostream & operator <<(std::ostream & outputStream, const Cpu & c);
 
     void emulateCycle(const float dt);

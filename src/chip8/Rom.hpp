@@ -9,8 +9,7 @@ struct Rom
 {
     std::vector<uint8_t> binaryData = {};
 
-    Rom(const std::string filePath);
-    ~Rom() = default;
+    explicit Rom(std::string filePath);
 };
 
 

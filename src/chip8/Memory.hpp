@@ -14,12 +14,11 @@ struct Memory
     std::array<uint8_t, NMEM> storage;
 
     Memory();
-    ~Memory() = default;
 
     void clearMemory();
     void initFontSet();
-    void loadBinary(const std::vector<uint8_t> binary);
-    const uint16_t fetchOpcode(const uint16_t pc);
+    void loadBinary(std::vector<uint8_t> binary);
+    const uint16_t fetchOpcode(uint16_t pc);
 };
 
 

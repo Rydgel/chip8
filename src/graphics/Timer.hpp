@@ -9,9 +9,6 @@ struct Timer
     using Clock = std::chrono::high_resolution_clock;
     using MilliSeconds = std::chrono::milliseconds;
 
-    Timer() = default;
-    ~Timer() = default;
-
     void init();
     const double getTime();
     const float getDelta();

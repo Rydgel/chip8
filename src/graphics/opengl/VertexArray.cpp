@@ -12,13 +12,13 @@ VertexArray::~VertexArray()
     }
 }
 
-VertexArray::VertexArray(VertexArray && vertexArray)
+VertexArray::VertexArray(VertexArray && vertexArray) noexcept
 : id_(vertexArray.id_)
 {
     vertexArray.id_ = 0;
 }
 
-VertexArray & VertexArray::operator=(VertexArray && vertexArray)
+VertexArray & VertexArray::operator=(VertexArray && vertexArray) noexcept
 {
     id_ = vertexArray.id_;
     vertexArray.id_ = 0;
